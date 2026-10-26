@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Browser Element Annotation",
+    "description": "Pick an element in the built-in side browser and add its exact selector, DOM and your note to the chat draft."
+  }
+}

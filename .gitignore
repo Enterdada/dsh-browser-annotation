@@ -1,0 +1,16 @@
+# Dependencies and local artifacts
+node_modules/
+.pnpm-store/
+
+# Logs and local test output
+*.log
+dev/report.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local plugin-manager state if someone copies a profile here
+.plugin-manager/

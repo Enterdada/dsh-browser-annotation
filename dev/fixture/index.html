@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DSH 批注验收页</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5b667a;
+      --line: #dfe4ee;
+      --brand: #2456d6;
+      --surface: #ffffff;
+      --wash: #f3f6fc;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 15px/1.6 system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; color: var(--ink); background: var(--wash); }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 28px; background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
+    .logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #4c8dff, #2456d6); }
+    nav { display: flex; gap: 6px; }
+    nav a { color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 8px; }
+    nav a:hover { background: var(--wash); color: var(--ink); }
+    main { max-width: 960px; margin: 0 auto; padding: 40px 28px 96px; }
+    h1 { font-size: 30px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -.3px; }
+    .lede { color: var(--muted); margin: 0 0 32px; max-width: 620px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: 0 1px 2px rgba(20, 30, 50, .04); }
+    .card h2 { font-size: 16px; margin: 0 0 8px; }
+    .card p { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+    .btn { appearance: none; border: 1px solid transparent; border-radius: 9px; padding: 9px 14px; font: inherit; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: #1d47b8; }
+    .btn-ghost { background: transparent; color: var(--muted); border-color: var(--line); }
+    .profile { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+    .profile h2 { margin: 0 0 4px; font-size: 17px; }
+    .profile .hint { color: var(--muted); font-size: 13px; margin: 0 0 18px; }
+    .form-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+    label { display: grid; gap: 5px; font-size: 13px; color: var(--muted); }
+    input, select { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); min-width: 200px; }
+    .footer-note { margin-top: 34px; font-size: 12px; color: var(--muted); }
+    .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--brand); background: #eaf0ff; border-radius: 999px; padding: 3px 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="logo" aria-hidden="true"></span> Acme Console</div>
+    <nav aria-label="主导航">
+      <a href="#overview">总览</a>
+      <a href="#profile">账户</a>
+      <a href="#billing">账单</a>
+    </nav>
+  </header>
+
+  <main>
+    <span class="tag" data-testid="build-badge">fixture · dsh browser annotation</span>
+    <h1 id="overview">批注验收控制台</h1>
+    <p class="lede">这个页面用于验证 DSH 内置浏览器的元素批注模式：在页面上点选一个元素，填写修改说明，批注会带着精确的选择器进入对话草稿。</p>
+
+    <section class="grid" aria-label="指标卡片">
+      <article class="card" data-testid="metric-card-usage">
+        <h2>本月用量</h2>
+        <p>当前工作区共运行 128 次任务，较上月增长 12%。</p>
+        <button class="btn btn-primary" data-testid="metric-open-usage">查看用量明细</button>
+      </article>
+      <article class="card" data-testid="metric-card-members">
+        <h2>团队成员</h2>
+        <p>4 名成员，2 个待处理邀请。</p>
+        <button class="btn btn-ghost" data-testid="metric-invite">邀请成员</button>
+      </article>
+      <article class="card" data-testid="metric-card-limit">
+        <h2>配额上限</h2>
+        <p>本周期还剩 3,420 次调用额度。</p>
+        <button class="btn btn-ghost" data-testid="metric-upgrade">升级方案</button>
+      </article>
+    </section>
+
+    <section class="profile" id="profile" aria-label="账户设置">
+      <h2>账户设置</h2>
+      <p class="hint">修改下面的显示名称并保存。这个按钮就是验收时要点选的目标元素。</p>
+      <form id="profile-form" onsubmit="return false;">
+        <div class="form-row">
+          <label>显示名称
+            <input id="display-name" name="displayName" value="Alex Chen" autocomplete="off">
+          </label>
+          <label>界面语言
+            <select id="locale" name="locale">
+              <option value="zh">简体中文</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <button type="button" class="btn btn-primary" id="save-profile" data-testid="save-profile">保存更改</button>
+          <button type="button" class="btn btn-ghost" id="reset-profile">重置</button>
+        </div>
+      </form>
+    </section>
+
+    <p class="footer-note">本页面仅用于本地验收，不连接任何后端。请求会由 workspace 内的临时静态服务器处理。</p>
+  </main>
+</body>
+</html>

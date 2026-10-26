@@ -1,0 +1,3 @@
+- insert:
+    - id: browser-annotation
+      name: 'dsh-browser-annotation'
